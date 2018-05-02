@@ -12,13 +12,21 @@
             <ColumnDefinition Width="0*"/>
         </Grid.ColumnDefinitions>
         <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="201" Margin="10,193,0,0" VerticalAlignment="Top" Width="180"/>
-        <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="63" Margin="195,10,0,0" VerticalAlignment="Top" Width="587">
-            <Button x:Name="button_Copy" Content="Button" HorizontalAlignment="Left" Height="63" Margin="296,-1,-1,-1" VerticalAlignment="Top" Width="290"/>
-        </Border>
-        <Button x:Name="addTaskButton" Content="Button" HorizontalAlignment="Left" Height="63" Margin="195,10,0,0" VerticalAlignment="Top" Width="290" Click="addTaskButton_Click"/>
+        <Button x:Name="addTaskButton" Content="Button" HorizontalAlignment="Left" Height="63" Margin="195,41,0,0" VerticalAlignment="Top" Width="290" Click="addTaskButton_Click"/>
+        <Button x:Name="button_Copy" Content="Button" HorizontalAlignment="Left" Height="63" Margin="490,41,0,0" VerticalAlignment="Top" Width="290"/>
         <Button x:Name="button1" Content="Button" HorizontalAlignment="Left" Height="49" Margin="10,85,0,0" VerticalAlignment="Top" Width="180"/>
         <Button x:Name="button1_Copy" Content="Button" HorizontalAlignment="Left" Height="49" Margin="10,139,0,0" VerticalAlignment="Top" Width="180"/>
         <Calendar HorizontalAlignment="Left" Margin="275,139,0,0" VerticalAlignment="Top"/>
+        <Menu Height="18" VerticalAlignment="Top">
+            <MenuItem Header="File">
+                <MenuItem Header="New Project" Click="NewProject"/>
+                <MenuItem Header="Open Project" Click="OpenProject"/>
+                <MenuItem Header="Save Project" Click="SaveProject"/>
+            </MenuItem>
+            <MenuItem Header="Edit">
+                <MenuItem Header="Project Properties" Click="OpenProjectSettings"/>
+            </MenuItem>
+        </Menu>
 
     </Grid>
 </Window>
