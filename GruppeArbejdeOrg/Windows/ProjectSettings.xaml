@@ -7,6 +7,10 @@
         mc:Ignorable="d"
         Title="Project Settings" Height="300" Width="300">
     <Grid>
-        
+        <Label Content="Project Settings" Margin="61,25,61,0" VerticalAlignment="Top" HorizontalContentAlignment="Center" FontSize="18"/>
+        <Separator Height="15" Margin="28,64,28,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="ProjectName" Height="23" Margin="28,84,28,0" TextWrapping="Wrap" Text="Name" VerticalAlignment="Top" RenderTransformOrigin="0.681,-0.101"/>
+        <Button Content="Apply Settings" Margin="28,112,28,0" VerticalAlignment="Top" Click="ApplySettings"/>
+
     </Grid>
 </Window>

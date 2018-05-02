@@ -15,6 +15,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Windows.Forms;
 using GruppeArbejdeOrg.Windows;
+using System.ComponentModel;
 
 namespace GruppeArbejdeOrg
 {
@@ -32,6 +33,11 @@ namespace GruppeArbejdeOrg
         {
             InitializeComponent();
             UpdateTitle();
+        }
+
+        protected override void OnClosing(CancelEventArgs e)
+        {
+            System.Windows.Application.Current.Shutdown();
         }
 
         private void addTaskButton_Click(object sender, RoutedEventArgs e)
@@ -58,27 +64,52 @@ namespace GruppeArbejdeOrg
             }
 
             UpdateTitle();
-
         }
 
         private void SaveProject(object sender, RoutedEventArgs e)
         {
-            if (currentProject.Path != null)
+            if (currentProject != null)
             {
-                currentProject.SaveToFile();
+                if (currentProject.Path != null)
+                {
+                    currentProject.SaveToFile();
+                }
+                else
+                {
+                    SaveFileDialog dialog = new SaveFileDialog();
+                    dialog.AddExtension = true;
+                    dialog.DefaultExt = ".dild";
+                    if (dialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                    {
+                        currentProject.Path = dialog.FileName;
+                        currentProject.SaveToFile();
+                    }
+                }
             }
+            else
+            {
+                System.Windows.MessageBox.Show("You need to make a new project, or load an existing one to save!");
+            }
+            
         }
 
         private void OpenProjectSettings(object sender, RoutedEventArgs e)
         {
             if (projectSettings == null)
             {
-                projectSettings = new ProjectSettings();
+                projectSettings = new ProjectSettings(currentProject);
+                projectSettings.Show();
             }
             else if(projectSettings.IsVisible == false)
             {
                 projectSettings.Show();
             }
+
+            if (projectSettings != null)
+            {
+                projectSettings.ReloadCurrentProject(currentProject);
+            }
+
         }
 
         #endregion
