@@ -85,6 +85,7 @@ namespace GruppeArbejdeOrg
                         currentProject.SaveToFile();
                     }
                 }
+                UpdateTitle();
             }
             else
             {
