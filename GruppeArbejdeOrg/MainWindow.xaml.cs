@@ -28,47 +28,34 @@ namespace GruppeArbejdeOrg
     public partial class MainWindow : System.Windows.Window
     {
 
+        //Variabler
         Project currentProject;
-
         ProjectSettings projectSettings;
 
+        //Constructor
         public MainWindow()
         {
             InitializeComponent();
             UpdateTitle();
         }
 
+        //Ovveride function af OnClosing, som bliver kaldt når vinduet lukker
         protected override void OnClosing(CancelEventArgs e)
         {
             System.Windows.Application.Current.Shutdown();
         }
 
-        private void AddNewReminder(object sender, RoutedEventArgs e)
-        {
 
-            string userInput = Microsoft.VisualBasic.Interaction.InputBox("Write your reminder message", "Add Reminder", "Reminder!!!");
+        #region Menu Items
 
-            XmlDocument toastXml = ToastNotificationManager.GetTemplateContent(ToastTemplateType.ToastImageAndText04);
-
-            // Fill in the text elements
-            XmlNodeList stringElements = toastXml.GetElementsByTagName("text");
-            stringElements[0].AppendChild(toastXml.CreateTextNode("Project Omatic 4000 Reminder!"));
-            stringElements[1].AppendChild(toastXml.CreateTextNode(userInput));
-
-            var test = toastXml.GetElementsByTagName("command");
-
-            ToastNotification toast = new ToastNotification(toastXml);
-            ToastNotificationManager.CreateToastNotifier("Toast Test").Show(toast);
-        }
-
-        #region Menu
-
+        //Opretter et ny projekt
         private void NewProject(object sender, RoutedEventArgs e)
         {
             currentProject = new Project();
             UpdateTitle();
         }
 
+        //Åbner en eksisterende projekt (.dild fil)
         private void OpenProject(object sender, RoutedEventArgs e)
         {
             OpenFileDialog dialog = new OpenFileDialog();
@@ -83,6 +70,7 @@ namespace GruppeArbejdeOrg
             UpdateTitle();
         }
 
+        //Hvis projektet allerede er gemt et sted gemmer den det samme sted, ellers ber den brugeren om at gemme den et sted
         private void SaveProject(object sender, RoutedEventArgs e)
         {
 
@@ -116,6 +104,7 @@ namespace GruppeArbejdeOrg
             
         }
 
+        //Åbner project indstillings vinduet
         private void OpenProjectSettings(object sender, RoutedEventArgs e)
         {
             if (currentProject != null)
@@ -145,23 +134,9 @@ namespace GruppeArbejdeOrg
 
         #endregion
 
+        #region Window Buttons
 
-
-        private void UpdateTitle()
-        {
-            if (currentProject != null)
-            {
-                Title = $"Gruppe Omatic 4000 - { currentProject.Name }";
-            }
-        }
-
-        private void OpenWordDocument(string path)
-        {
-            Microsoft.Office.Interop.Word.Application word = new Microsoft.Office.Interop.Word.Application();
-            word.Visible = true;
-            word.Documents.Open(path);
-        }
-
+        //Bliver kaldt når brugeren åbner et dokument
         private void DocumentClick(object sender, RoutedEventArgs e)
         {
 
@@ -171,6 +146,7 @@ namespace GruppeArbejdeOrg
             }
         }
 
+        //Bliver kald når brugeren trykke på knappen "Open Problem Definition", og den åbner så ens problemstilling, eller siger at du skal linke til den hvis du ikke har gjort det
         private void OpenProblemDefinitionFile(object sender, RoutedEventArgs e)
         {
             if (currentProject != null && currentProject.ProblemDefinitionPath != null)
@@ -183,6 +159,7 @@ namespace GruppeArbejdeOrg
             }
         }
 
+        //Gør det samme som ovenstående funktion, men bare med tids foredelingen istedet
         private void OpenTimeScheduleFile(object sender, RoutedEventArgs e)
         {
             if (currentProject != null && currentProject.TimeSchedulePath != null)
@@ -194,5 +171,45 @@ namespace GruppeArbejdeOrg
                 System.Windows.MessageBox.Show("You have not yet added A path to your Time Schedule. To add it go to Edit->Project Settings");
             }
         }
+
+        //Laver en ny reminder baseret på bruger input
+        private void AddNewReminder(object sender, RoutedEventArgs e)
+        {
+
+            string userInput = Microsoft.VisualBasic.Interaction.InputBox("Write your reminder message", "Add Reminder", "Reminder!!!");
+
+            XmlDocument toastXml = ToastNotificationManager.GetTemplateContent(ToastTemplateType.ToastImageAndText04);
+
+            // Fill in the text elements
+            XmlNodeList stringElements = toastXml.GetElementsByTagName("text");
+            stringElements[0].AppendChild(toastXml.CreateTextNode("Project Omatic 4000 Reminder!"));
+            stringElements[1].AppendChild(toastXml.CreateTextNode(userInput));
+
+            var test = toastXml.GetElementsByTagName("command");
+
+            ToastNotification toast = new ToastNotification(toastXml);
+            ToastNotificationManager.CreateToastNotifier("Toast Test").Show(toast);
+        }
+
+        #endregion
+
+        //Opdatere titlen af vinduet baseret på navnet af det åbnede projekt
+        private void UpdateTitle()
+        {
+            if (currentProject != null)
+            {
+                Title = $"Gruppe Omatic 4000 - { currentProject.Name }";
+            }
+        }
+
+        //Åbner et word dokument baseret på en filepath
+        private void OpenWordDocument(string path)
+        {
+            Microsoft.Office.Interop.Word.Application word = new Microsoft.Office.Interop.Word.Application();
+            word.Visible = true;
+            word.Documents.Open(path);
+        }
+
+       
     }
 }

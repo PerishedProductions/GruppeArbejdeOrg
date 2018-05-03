@@ -22,20 +22,24 @@ namespace GruppeArbejdeOrg.Windows
     public partial class ProjectSettings : Window
     {
 
+        //Properties og Variabler
         public Project CurrentProject { get; set; }
 
+        //Cunstroctor
         public ProjectSettings(Project project)
         {
             InitializeComponent();
             ReloadCurrentProject(project);
         }
 
+        //Ovveride function af OnClosing, som bliver kaldt når vinduet lukker
         protected override void OnClosing(CancelEventArgs e)
         {
             e.Cancel = true;
             this.Hide();
         }
 
+        //Gemmer endringerne til Projekt objektet (CurrentObject)
         private void ApplySettings(object sender, RoutedEventArgs e)
         {
             CurrentProject.Name = ProjectName.Text;
@@ -44,6 +48,7 @@ namespace GruppeArbejdeOrg.Windows
             this.Hide();
         }
 
+        //Henter data fra Projekt objektet (CurrentObject)
         public void ReloadCurrentProject(Project project)
         {
             this.CurrentProject = project;
@@ -60,6 +65,7 @@ namespace GruppeArbejdeOrg.Windows
             }
         }
 
+        //Åbner et vindu hvor du kan vælge din problemformulering
         private void OpenProjectDefinition(object sender, RoutedEventArgs e)
         {
             OpenFileDialog dialog = new OpenFileDialog();
@@ -69,6 +75,7 @@ namespace GruppeArbejdeOrg.Windows
             }
         }
 
+        //Åbner et vindu hvor du kan vælge din tidsplan
         private void OpenTimeSchedule(object sender, RoutedEventArgs e)
         {
             OpenFileDialog dialog = new OpenFileDialog();

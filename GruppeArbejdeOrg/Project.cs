@@ -7,6 +7,7 @@ namespace GruppeArbejdeOrg
     public class Project
     {
 
+        //Properties and Variablers
         public string Name { get; set; } = "Untitled Project";
         public string ProblemDefinitionPath { get; set; }
         public string TimeSchedulePath { get; set; }
@@ -15,17 +16,20 @@ namespace GruppeArbejdeOrg
 
         public List<string> Files { get; set; } = new List<string>();
 
+        //Contructor
         public Project()
         {
 
         }
 
+        //Constructor 2 som tager en string som argument
         public Project(string path)
         {
             this.Path = path;
             LoadFromFile();
         }
 
+        //Loader en xml fil(.dild) og henter dataen ind
         void LoadFromFile()
         {
             if (Path != null)
@@ -61,6 +65,7 @@ namespace GruppeArbejdeOrg
             }
         }
 
+        //Gemmer alt dataen til en xml fil(.dild)
         public void SaveToFile()
         {
             XmlDocument doc = new XmlDocument();
