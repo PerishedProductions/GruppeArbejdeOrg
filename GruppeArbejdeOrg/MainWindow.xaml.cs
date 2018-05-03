@@ -56,7 +56,7 @@ namespace GruppeArbejdeOrg
         private void OpenProject(object sender, RoutedEventArgs e)
         {
             OpenFileDialog dialog = new OpenFileDialog();
-
+            dialog.InitialDirectory = $"{Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments)}\\GruppeOmaticProjects";
             if (dialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
                 Project newProject = new Project(dialog.FileName);
@@ -96,20 +96,28 @@ namespace GruppeArbejdeOrg
 
         private void OpenProjectSettings(object sender, RoutedEventArgs e)
         {
-            if (projectSettings == null)
+            if (currentProject != null)
             {
-                projectSettings = new ProjectSettings(currentProject);
-                projectSettings.Show();
-            }
-            else if(projectSettings.IsVisible == false)
-            {
-                projectSettings.Show();
-            }
+                if (projectSettings == null)
+                {
+                    projectSettings = new ProjectSettings(currentProject);
+                    projectSettings.Show();
+                }
+                else if (projectSettings.IsVisible == false)
+                {
+                    projectSettings.Show();
+                }
 
-            if (projectSettings != null)
-            {
-                projectSettings.ReloadCurrentProject(currentProject);
+                if (projectSettings != null)
+                {
+                    projectSettings.ReloadCurrentProject(currentProject);
+                }
             }
+            else
+            {
+                System.Windows.MessageBox.Show("You need to make a new project, or load an existing one to edit the project settings!");
+            }
+            
 
         }
 
