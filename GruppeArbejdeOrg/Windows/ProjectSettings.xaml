@@ -5,12 +5,19 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:GruppeArbejdeOrg.Windows"
         mc:Ignorable="d"
-        Title="Project Settings" Height="300" Width="300">
+        Title="Project Settings" Height="375.334" Width="300">
     <Grid>
         <Label Content="Project Settings" Margin="61,25,61,0" VerticalAlignment="Top" HorizontalContentAlignment="Center" FontSize="18"/>
         <Separator Height="15" Margin="28,64,28,0" VerticalAlignment="Top"/>
-        <TextBox x:Name="ProjectName" Height="23" Margin="28,84,28,0" TextWrapping="Wrap" Text="Name" VerticalAlignment="Top" RenderTransformOrigin="0.681,-0.101"/>
-        <Button Content="Apply Settings" Margin="28,112,28,0" VerticalAlignment="Top" Click="ApplySettings"/>
+        <TextBox x:Name="ProjectName" Height="23" Margin="28,105,28,0" TextWrapping="Wrap" Text="Name" VerticalAlignment="Top" RenderTransformOrigin="0.681,-0.101"/>
+        <Button Content="Apply Settings" Margin="28,281,28,0" VerticalAlignment="Top" Click="ApplySettings"/>
+        <TextBox x:Name="ProjectDef" Height="23" Margin="28,171,108,0" TextWrapping="Wrap" VerticalAlignment="Top" RenderTransformOrigin="0.681,-0.101"/>
+        <Button Content="Browse" Margin="189,171,28,0" VerticalAlignment="Top" Height="23" Click="OpenProjectDefinition"/>
+        <TextBox x:Name="TimeSched" Height="23" Margin="28,241,108,0" TextWrapping="Wrap" VerticalAlignment="Top" RenderTransformOrigin="0.681,-0.101"/>
+        <Button Content="Browse" Margin="189,241,28,0" VerticalAlignment="Top" Height="23" Click="OpenTimeSchedule"/>
+        <Label Content="Project Name:" Margin="28,79,180,0" VerticalAlignment="Top"/>
+        <Label Content="Project Definition" Margin="28,140,133,0" VerticalAlignment="Top"/>
+        <Label Content="Time Schedule" Margin="28,210,133,0" VerticalAlignment="Top"/>
 
     </Grid>
 </Window>

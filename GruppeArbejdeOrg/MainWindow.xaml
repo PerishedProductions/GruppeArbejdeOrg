@@ -5,17 +5,15 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:GruppeArbejdeOrg"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="Project Omatic 4000" Height="450" Width="800">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
             <ColumnDefinition Width="0*"/>
         </Grid.ColumnDefinitions>
-        <Button x:Name="addTaskButton" Content="Button" HorizontalAlignment="Left" Height="63" Margin="195,23,0,0" VerticalAlignment="Top" Width="290" Click="addTaskButton_Click"/>
-        <Button x:Name="button_Copy" Content="Button" HorizontalAlignment="Left" Height="63" Margin="490,41,0,0" VerticalAlignment="Top" Width="290"/>
-        <Button x:Name="button1" Content="Button" HorizontalAlignment="Left" Height="49" Margin="10,85,0,0" VerticalAlignment="Top" Width="180"/>
-        <Button x:Name="button1_Copy" Content="Button" HorizontalAlignment="Left" Height="49" Margin="10,139,0,0" VerticalAlignment="Top" Width="180"/>
-        <Calendar HorizontalAlignment="Left" Margin="275,139,0,0" VerticalAlignment="Top"/>
+        <Button x:Name="addTaskButton" Content="Add new reminder" HorizontalAlignment="Left" Height="54" Margin="10,26,0,0" VerticalAlignment="Top" Width="180" Click="AddNewReminder"/>
+        <Button x:Name="button1" Content="Open Problem Definition" HorizontalAlignment="Left" Height="49" Margin="10,85,0,0" VerticalAlignment="Top" Width="180" Click="OpenProblemDefinitionFile"/>
+        <Button x:Name="button1_Copy" Content="Open Time Schedule" HorizontalAlignment="Left" Height="49" Margin="10,139,0,0" VerticalAlignment="Top" Width="180" Click="OpenTimeScheduleFile"/>
         <Menu Height="18" VerticalAlignment="Top">
             <MenuItem Header="File">
                 <MenuItem Header="New Project" Click="NewProject"/>
@@ -23,7 +21,7 @@
                 <MenuItem Header="Save Project" Click="SaveProject"/>
             </MenuItem>
             <MenuItem Header="Edit">
-                <MenuItem Header="Project Properties" Click="OpenProjectSettings"/>
+                <MenuItem Header="Project Settings" Click="OpenProjectSettings"/>
             </MenuItem>
         </Menu>
         <ListBox HorizontalAlignment="Left" Height="216" Margin="10,193,0,0" VerticalAlignment="Top" Width="180">
@@ -36,31 +34,12 @@
                     <ColumnDefinition Width="auto"/>
                 </Grid.ColumnDefinitions>
                 <Label Grid.Row="1" Content="Document 1"></Label>
-                <Button Grid.Row="1" Grid.Column="1" Content="Open"></Button>
+                <Button Grid.Row="1" Grid.Column="1" Content="Open" Click="DocumentClick"></Button>
             </Grid>
-            <Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="auto"/>
-                </Grid.RowDefinitions>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="auto"/>
-                    <ColumnDefinition Width="auto"/>
-                </Grid.ColumnDefinitions>
-                <Label Grid.Row="1" Content="Document 2"></Label>
-                <Button Grid.Row="1" Grid.Column="1" Content="Open"></Button>
-            </Grid>
-            <Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="auto"/>
-                </Grid.RowDefinitions>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="auto"/>
-                    <ColumnDefinition Width="auto"/>
-                </Grid.ColumnDefinitions>
-                <Label Grid.Row="1" Content="Document 3"></Label>
-                <Button Grid.Row="1" Grid.Column="1" Content="Open"></Button>
-            </Grid>
+
         </ListBox>
+        <TextBox x:Name="Notes" HorizontalAlignment="Left" Height="352" Margin="195,57,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="587"/>
+        <Label Content="Notes:" HorizontalAlignment="Left" Margin="195,26,0,0" VerticalAlignment="Top"/>
 
     </Grid>
 </Window>

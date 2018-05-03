@@ -16,13 +16,16 @@ using System.Windows.Shapes;
 using System.Windows.Forms;
 using GruppeArbejdeOrg.Windows;
 using System.ComponentModel;
+using Microsoft.Office.Interop.Word;
+using Windows.UI.Notifications;
+using Windows.Data.Xml.Dom;
 
 namespace GruppeArbejdeOrg
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class MainWindow : System.Windows.Window
     {
 
         Project currentProject;
@@ -40,9 +43,22 @@ namespace GruppeArbejdeOrg
             System.Windows.Application.Current.Shutdown();
         }
 
-        private void addTaskButton_Click(object sender, RoutedEventArgs e)
+        private void AddNewReminder(object sender, RoutedEventArgs e)
         {
-            Debug.WriteLine("help");
+
+            string userInput = Microsoft.VisualBasic.Interaction.InputBox("Write your reminder message", "Add Reminder", "Reminder!!!");
+
+            XmlDocument toastXml = ToastNotificationManager.GetTemplateContent(ToastTemplateType.ToastImageAndText04);
+
+            // Fill in the text elements
+            XmlNodeList stringElements = toastXml.GetElementsByTagName("text");
+            stringElements[0].AppendChild(toastXml.CreateTextNode("Project Omatic 4000 Reminder!"));
+            stringElements[1].AppendChild(toastXml.CreateTextNode(userInput));
+
+            var test = toastXml.GetElementsByTagName("command");
+
+            ToastNotification toast = new ToastNotification(toastXml);
+            ToastNotificationManager.CreateToastNotifier("Toast Test").Show(toast);
         }
 
         #region Menu
@@ -63,11 +79,15 @@ namespace GruppeArbejdeOrg
                 currentProject = newProject;
             }
 
+            Notes.Text = currentProject.Notes;
             UpdateTitle();
         }
 
         private void SaveProject(object sender, RoutedEventArgs e)
         {
+
+            currentProject.Notes = Notes.Text;
+
             if (currentProject != null)
             {
                 if (currentProject.Path != null)
@@ -85,6 +105,8 @@ namespace GruppeArbejdeOrg
                         currentProject.SaveToFile();
                     }
                 }
+
+                Notes.Text = currentProject.Notes;
                 UpdateTitle();
             }
             else
@@ -125,7 +147,7 @@ namespace GruppeArbejdeOrg
 
 
 
-        void UpdateTitle()
+        private void UpdateTitle()
         {
             if (currentProject != null)
             {
@@ -133,6 +155,44 @@ namespace GruppeArbejdeOrg
             }
         }
 
-        
+        private void OpenWordDocument(string path)
+        {
+            Microsoft.Office.Interop.Word.Application word = new Microsoft.Office.Interop.Word.Application();
+            word.Visible = true;
+            word.Documents.Open(path);
+        }
+
+        private void DocumentClick(object sender, RoutedEventArgs e)
+        {
+
+            if (currentProject != null)
+            {
+                OpenWordDocument(currentProject.Files[0]);
+            }
+        }
+
+        private void OpenProblemDefinitionFile(object sender, RoutedEventArgs e)
+        {
+            if (currentProject != null && currentProject.ProblemDefinitionPath != null)
+            {
+                OpenWordDocument(currentProject.ProblemDefinitionPath);
+            }
+            else
+            {
+                System.Windows.MessageBox.Show("You have not yet added A path to your Problem Definition. To add it go to Edit->Project Settings");
+            }
+        }
+
+        private void OpenTimeScheduleFile(object sender, RoutedEventArgs e)
+        {
+            if (currentProject != null && currentProject.TimeSchedulePath != null)
+            {
+                OpenWordDocument(currentProject.TimeSchedulePath);
+            }
+            else
+            {
+                System.Windows.MessageBox.Show("You have not yet added A path to your Time Schedule. To add it go to Edit->Project Settings");
+            }
+        }
     }
 }

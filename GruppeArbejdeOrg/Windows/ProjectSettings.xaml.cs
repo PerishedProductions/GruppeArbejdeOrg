@@ -8,6 +8,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Documents;
+using System.Windows.Forms;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
@@ -38,7 +39,8 @@ namespace GruppeArbejdeOrg.Windows
         private void ApplySettings(object sender, RoutedEventArgs e)
         {
             CurrentProject.Name = ProjectName.Text;
-
+            CurrentProject.ProblemDefinitionPath = ProjectDef.Text;
+            CurrentProject.TimeSchedulePath = TimeSched.Text;
             this.Hide();
         }
 
@@ -46,7 +48,34 @@ namespace GruppeArbejdeOrg.Windows
         {
             this.CurrentProject = project;
             ProjectName.Text = CurrentProject.Name;
+
+            if (CurrentProject.ProblemDefinitionPath != null)
+            {
+                ProjectDef.Text = CurrentProject.ProblemDefinitionPath;
+            }
+
+            if (CurrentProject.TimeSchedulePath != null)
+            {
+                TimeSched.Text = CurrentProject.TimeSchedulePath;
+            }
         }
 
+        private void OpenProjectDefinition(object sender, RoutedEventArgs e)
+        {
+            OpenFileDialog dialog = new OpenFileDialog();
+            if (dialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                ProjectDef.Text = dialog.FileName;
+            }
+        }
+
+        private void OpenTimeSchedule(object sender, RoutedEventArgs e)
+        {
+            OpenFileDialog dialog = new OpenFileDialog();
+            if (dialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                TimeSched.Text = dialog.FileName;
+            }
+        }
     }
 }
